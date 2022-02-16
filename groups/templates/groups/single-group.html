@@ -1,0 +1,56 @@
+{% extends 'main.html' %} {% block content %}
+
+<div class="container-fluid" style="padding-top: 2%; max-width: 500px">
+  <img src="{{group.img_url}}" class="img-fluid" alt="..." />
+  <h1 class="text-center" style="font-size: 250%">{{group}}</h1>
+</div>
+<hr />
+<h1>About Us</h1>
+<p>{{group.description}}</p>
+<hr />
+
+<h2>Upcoming Events ({{group.event_set.count}})</h2>
+
+{% for event in group.event_set.all|slice:":2" %}
+
+<div class="card mx-auto" style="width: 20rem">
+  <img
+    src="{{event.img_url}}"
+    onerror="this.style.display='none'"
+    class="card-img-top"
+    alt="..."
+  />
+  <div class="card-body">
+    <h5 class="card-title">{{event.title}}</h5>
+    <small class="card-text text-muted">{{event.date}}</small>
+    <p class="card-text">{{event.guest_count}} attendees</p>
+    <p class="card-text">{{event.group}}</p>
+    <a href="{% url 'event' event.id %}" class="btn btn-primary">View Event</a>
+  </div>
+</div>
+
+{% endfor %}
+
+<hr />
+
+<h2>Members ({{group.members.count}})</h2>
+
+<table class="table table-sm">
+  <caption>
+    <form action="{% url 'join-group' group.id %}" method="POST">
+      {% csrf_token %} {% if request.user.profile in group.members.all %}
+      <button type="submit" class="btn btn-secondary">Leave</button>
+      {% else %}
+      <button type="submit" class="btn btn-primary">Join</button>
+      {% endif %}
+    </form>
+  </caption>
+
+  <tbody>
+    {% for member in group.members.all %}
+    <td>{{member.last_initial}}</td>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock content %}

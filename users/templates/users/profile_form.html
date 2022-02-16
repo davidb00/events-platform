@@ -1,0 +1,14 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<br>
+
+<div class="form-control">
+<form action="" autocomplete="off" method="POST">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+    <input type="submit" class="btn btn-primary" value="Submit">
+</div>
+{% endblock content %}

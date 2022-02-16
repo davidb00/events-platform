@@ -1,0 +1,11 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+{% for post in user_posts %}
+
+{{post.body}}
+
+{% endfor %}
+
+{% endblock content %}

@@ -1,0 +1,11 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<br>
+<div class="d-grid gap-2">
+<a href="{% url 'custom_login' %}" class="btn btn-info" role="button">Login</a>
+<a href="{% url 'register' %}" class="btn btn-info" role="button">Create an Account</a>
+</div>
+
+{% endblock content %}

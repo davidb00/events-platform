@@ -1,0 +1,41 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+
+<form action=""method="POST" class="form">
+    {% csrf_token %}
+    <!-- Input:Username -->
+    <div class="mb-3">
+      <label for="formInput#text">Username: </label>
+      <input
+        class="form-control"
+        id="formInput#text"
+        type="text"
+        name="username"
+        placeholder="Enter your username..."
+      />
+    </div>
+
+    <!-- Input:Password -->
+    <div class="mb-3">
+      <label for="formInput#password">Password: </label>
+      <input
+        class="form-control"
+        id="formInput#passowrd"
+        type="password"
+        name="password"
+        placeholder="••••••••"
+      />
+    </div>
+    <div class="mb-3">
+        <input class="btn btn-primary" type="submit" value="Log In" />
+        
+      </div>
+  </form>
+
+  <a class="btn btn-primary" style="text-decoration: none" href="{% url 'register' %}">Register</a>
+  <strong>OR</strong>
+  <a class="btn btn-secondary" style="text-decoration: none" href="{% url 'demo_login' %}">Demo</a>
+
+{% endblock content %}

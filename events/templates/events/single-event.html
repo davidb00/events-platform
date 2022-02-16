@@ -1,0 +1,143 @@
+{% extends 'main.html' %} 
+
+{% block content %}
+
+
+<h3>{% if request.user.profile == event.organizer %}
+    <a href="{% url 'update-event' event.id %}">Update Event</a>
+    {% endif %}
+</h3>
+
+
+
+<div class = "container-fluid">
+    <h1>{{event.title}}</h1>
+    <h6>{{event.date}}</h6>
+    <h6>{{event.location}}</h6>
+    <h6 style="color: gray;">Group:</h6>
+    <h5><a href="{% url 'group' event.group.id %}" style="text-decoration: none;">{{event.group}}</a></h5>
+</div>
+<br>
+<div class="container-fluid">
+    <h6 style="font-weight: bold;">About</h6>
+    <p>{{event.description}}</p>
+
+</div>
+
+
+<div class="container-fluid">
+    <h6 style="font-weight: bold;">Host</h6>
+    <p><a href="{% url 'profile' event.organizer.id %}" style="text-decoration: none;">{{event.organizer.last_initial}}</a></p>
+</div>
+<hr>
+
+<div class="container-fluid">
+  <img src="{{event.img_url}}" class="img-fluid">
+</div>
+
+<hr>
+
+    <h5 style="font-weight: bold;">Attendees ({{event.guest_count}})</h5>
+
+<div class="list-group">
+
+
+
+
+    {% for value in attendees %}
+    {% if value.rsvp == 'YES' %}
+
+    <a href="#" class="list-group-item list-group-item-action" style="padding: 0%; border: none;">
+      <div class="d-flex w-100 justify-content-left">
+        <h6 class="mb-1">{{value.attendee.last_initial}}</h6>
+        <small class="text-muted">{% if value.guests > 0 %} &nbsp;+ {{value.guests}} guest{{value.guests|pluralize}}{% endif %}</small>
+        <!-- <small class="text-muted">3 days ago</small> -->
+      </div>
+      <!-- <p class="mb-1">Some placeholder content in a paragraph.</p> -->
+      <small class="text-muted">{{value.time_registered}}</small>
+    </a>
+    {% endif %}
+    {% endfor %}
+  </div>
+
+<hr>
+<!-- RSVP Form -->
+
+{% if request.user.profile in event.group.members.all %}
+
+<form action="" method="post">
+    {% csrf_token %}
+
+    {{ rsvp_form.as_p }}
+    <input type="submit" class="btn btn-primary" name='RSVP' value="Update RSVP">
+</form>
+
+{% else %}
+
+<h4>Join <a href="{% url 'group' event.group.id %}" style="text-decoration: none;">{{event.group}}</a> to RSVP</h4>
+
+{% endif %}
+ 
+<hr>
+
+<!-- COMMENT FORM  -->
+<form action="" method="post">
+    {% csrf_token %}
+
+    {{ comment_form.as_p }}
+
+    <input type="submit" class="btn btn-primary" name="comment" value="Add Comment">
+
+</form>
+
+
+<hr>
+
+<div class="list-group">
+
+    {% for comment in comments %}
+
+    <a href="#" class="list-group-item list-group-item-action" style="padding: 0%; border: none;">
+      <div class="d-flex w-100 justify-content-left">
+        <h6 class="mb-1">{{comment.attendee.last_initial}}</h6>
+
+        <!-- <small class="text-muted">3 days ago</small> -->
+      </div>
+      <p class="mb-1">{{comment.body}}</p>        
+      <small class="text-muted">{{comment.created}}  </small>{% if comment.likes.count != 0 %}<small class="text">{{comment.likes.count}} like{{comment.likes.count|pluralize}}</small>{% endif %}
+
+      
+      <form action ="{% url 'like_comment' event.pk %}" method="POST">
+        {% csrf_token %}
+    
+        {% if request.user.profile in comment.total_likes.all %}
+        <button type="submit" class="btn btn-secondary btn-sm" name="comment_id", value="{{ comment.id }}">Unlike</button>
+        {% else %}
+        <button type="submit"  class="btn btn-secondary btn-sm" , name="comment_id", value="{{ comment.id }}">Like</button>
+        
+        {% endif %}
+    </form>
+    
+<hr>
+
+
+
+    </a>
+
+    {% endfor %}
+  </div>
+
+
+  {% endblock content %}
+
+<script>
+
+    function myFunction() {
+      var x = document.getElementById("myDIV");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    }
+    </script>

@@ -1,0 +1,17 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<h4>Login</h4>
+<small class='text-muted'>Note: usernames are lowercase</small>
+<br/>
+<div class="">
+    <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button class="btn btn-primary">Login</button>
+</div>
+<br>
+<a class="btn btn-secondary"  href="{% url 'register' %}">Create an Account</a>
+<hr>
+
+{% endblock content %}

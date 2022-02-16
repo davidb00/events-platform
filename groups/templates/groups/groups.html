@@ -1,0 +1,34 @@
+{% include 'main.html' %} {% block content %}
+
+<section style="background-color: rgb(214, 229, 249)">
+  <h1 class="display-6">Groups</h1>
+  <hr />
+</section>
+
+<div class="row row-cols-1 row-cols-sm-3 g-4">
+  {% for group in groups %}
+  <div
+    class="card mx-auto"
+    style="width: 18rem; background-color: rgb(214, 229, 249)"
+  >
+    <img
+      src="{{group.img_url}}"
+      style="max-width: 18rem"
+      onerror="this.style.display='none'"
+      class="card-img-top"
+      alt="..."
+    />
+    <div class="card-body">
+      <h5 class="card-title">{{group.name}}</h5>
+      <p class="card-text">{{group.members.count}} members</p>
+      <p class="card-text">{{group.event_set.count}} upcoming event</p>
+      <p class="card-text">{{group.description}}</p>
+      <a href="{% url 'group' group.id %}" class="btn btn-primary"
+        >View Group</a
+      >
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% include 'footer.html' %} {% endblock content %}

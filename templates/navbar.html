@@ -1,0 +1,98 @@
+<nav
+  class="navbar navbar-light navbar-expand-sm fixed-top"
+  style="background-color: aquamarine"
+>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'home' %}">Coffee ConX</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasNavbar"
+      aria-controls="offcanvasNavbar"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      class="offcanvas offcanvas-end"
+      style="background-color: aquamarine"
+      tabindex="-1"
+      id="offcanvasNavbar"
+      aria-labelledby="offcanvasNavbarLabel"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Coffee ConX</h5>
+        <button
+          type="button"
+          class="btn-close text-reset"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item">
+            <a
+              class="nav-link active"
+              aria-current="page"
+              href="{% url 'events' %}"
+              >Events</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'groups' %}">Groups</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'profiles' %}">Profiles</a>
+          </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'inbox' %}"
+              >Messages {{user.profile.unread_count}}</a
+            >
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+          </li> -->
+
+          <li class="nav-item dropdown" style="padding-right: 5%">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdownMenuLink"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Settings
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li><a class="dropdown-item" href="#">About</a></li>
+              <li>
+                <a class="dropdown-item" href="{% url 'edit-account' %}"
+                  >Edit Account</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+              </li>
+            </ul>
+          </li>
+
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'custom_login' %}">Messages </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'register' %}">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'custom_login' %}">Login</a>
+          </li>
+
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>

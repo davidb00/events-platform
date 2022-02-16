@@ -1,0 +1,12 @@
+{% include 'main.html' %}
+
+{% block content %}
+
+<div class="">
+    <form method="POST" class="form-control">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button class="btn btn-primary">Send</button>
+</div>
+
+{% endblock content %}

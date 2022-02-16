@@ -1,0 +1,76 @@
+{% include 'main.html' %}
+
+{% block content %}
+
+
+
+<main class="content">
+  <div class="container p-0">
+
+
+  <div class="card">
+    <div class="row g-0">
+<div class="col-12 col-lg-7 col-xl-9">
+<div class="position-relative">
+  <div class="chat-messages p-4">
+{% for message in paginated_messages reversed  %}
+    <div class="chat-message-left pb-4">
+      <div>
+        <!-- <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40"> -->
+        <div class="text-muted small text-nowrap mt-2">{{message.created}}</div>
+      </div>
+      <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+        <div class="fw-bold mb-1">{{message.sender.last_initial}}</div>
+        {{message.body}}
+      </div>
+      {% endfor %}
+    </div>
+    <form action="" autocomplete="off" method="post">
+      {% csrf_token %}
+      {{ message_form.as_p }}
+      <input type="submit" class="btn btn-primary btn-sm" name='message' value="Send Message">
+    </form>
+    
+
+    <br>
+    <div class="card m-t-5">
+      <div class="body">
+          <ul class="pagination pagination-primary m-b-0">
+
+            {% if paginated_messages.has_previous %} 
+
+              <li class="page-item"><a class="page-link" href="?page={{paginated_messages.previous_page_number}}">&#8592;</a></li>
+            {% else %}
+            <li class="page-item"><a class="page-link text-muted" href="javascript:void(0);">&#8592;</a></li>
+            {% endif %}
+
+            
+            {% if paginated_messages.has_next %}
+
+            <li class="page-item"><a class="page-link" href="?page={{paginated_messages.next_page_number}}">&#8594;</a></li>
+
+            {% else %}
+
+            <li class="page-item"><a class="page-link text-muted" href="javascript:void(0);">&#8594;</a></li>
+
+            {% endif %}
+
+
+            <button class="btn btn-primary btn-sm" onClick="window.location.reload();">&#8635;</button>
+             <li class="page-item"><a class="page-link text-muted-primary" href="{% url 'inbox' %}">Inbox</a></li>
+          </ul>
+      </div>
+  </div>
+
+
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+</main>
+
+
+
+{% endblock content %}

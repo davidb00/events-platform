@@ -1,0 +1,40 @@
+{% extends 'main.html' %} {% block content %}
+
+<div style="background-color: linen">
+  <h1 class="display-6">Upcoming Events</h1>
+  <hr />
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  {% for event in events %}
+
+  <div class="card mx-auto" style="width: 18rem; background-color: linen">
+    <img
+      src="{{event.img_url}}"
+      onerror="this.style.display='none'"
+      class="card-img-top"
+      alt="..."
+    />
+    <div class="card-body">
+      <h5 class="card-title">{{event.title}}</h5>
+      <small class="card-text">{{event.location}}</small><br />
+      <small class="card-text text-muted">{{event.date}}</small>
+      <p class="card-text">{{event.guest_count}} attendees</p>
+      <p class="card-text">
+        <a href="{% url 'group' event.group.id %}" style="text-decoration: none"
+          >{{event.group}}</a
+        >
+      </p>
+
+      <a href="{% url 'event' event.id %}" class="btn btn-primary"
+        >View Event</a
+      >
+    </div>
+  </div>
+
+  {% endfor %}
+</div>
+
+<br />
+
+{% include 'footer.html' %} {% endblock content %}

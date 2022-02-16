@@ -1,0 +1,19 @@
+{% include 'main.html' %}
+
+{% block content %}
+
+
+{{profile.first_name}} {{profile.last_name}}
+<h4>Upcoming Events</h4>
+{% for reg in registrations %}
+<br>
+{{reg.event}}, {{reg.event.date}}
+{% endfor %}
+<h4>Groups</h4>
+{% for group in groups %}
+<br>
+{{group}}
+{% endfor %}
+
+<h4><a href="{% url 'edit-account' %}">Edit Account</a></h4>
+{% endblock content %}
