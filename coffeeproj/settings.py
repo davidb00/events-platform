@@ -5,7 +5,7 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'DEBUG_MODE'
+SECRET_KEY = '1234'
 
 DEBUG = True
 
@@ -143,7 +143,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1:3000",
+    "http://127.0.0.1",
     "http://localhost:3000",
     "http://192.168.1.7:3000"
 ]
@@ -151,6 +151,6 @@ CORS_ALLOWED_ORIGINS = [
 if os.getcwd() == '/app':
     DEBUG = False
     DATABASES = DATABASES_DEPLOYED
-    CORS_ALLOWED_ORIGINS = None
-    ALLOWED_HOSTS = ['coffeeconx-t1.herokuapp.com']
+    # CORS_ALLOWED_ORIGINS = None
+   # ALLOWED_HOSTS = ['coffeeconx-t1.herokuapp.com']
     SECRET_KEY = os.environ.get('SECRET_KEY')
